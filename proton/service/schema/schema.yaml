@@ -1,0 +1,84 @@
+schema:
+  format:
+    openapi: "3.0.0"
+  service_input_type: "LambdaServiceInput"
+  pipeline_input_type: "PipelineInputs"
+
+  types:
+    LambdaServiceInput:
+      type: object
+      description: "Input properties for a Lambda backed CRUD API. When given a resource name, this input will be used to generate Create, Read, Update and Delete API methods and lambdas."
+      properties:
+        dynamo_lambda_memory:
+          type: number
+          description: "The size of your Lambda functions in MB"
+          default: 512
+          minimum: 1
+          maximum: 3008
+        dynamo_lambda_timeout:
+          type: number
+          description: "The timeout in seconds of your Lambda function"
+          default: 30
+          minimum: 1
+          maximum: 900
+        dynamodb_starting_position:
+          type: string
+          description: "DynamoDB Starting Position"
+          default: "LATEST"
+          minLength: 1
+          maxLength: 20
+        dynamodb_batch_size:
+          type: number
+          description: "DynamoDB Batch size"
+          default: 100
+          minimum: 1
+          maximum: 900
+        sre_notifier_lambda_memory:
+          type: number
+          description: "The size of your Lambda functions in MB"
+          default: 512
+          minimum: 1
+          maximum: 3008
+        sre_notifier_lambda_timeout:
+          type: number
+          description: "The timeout in seconds of your Lambda function"
+          default: 30
+          minimum: 1
+          maximum: 900
+        ses_arn:
+          type: string
+          description: "SES Arn to send emails"
+          minLength: 1
+          maxLength: 200
+        sre_notifier_cron:
+          type: string
+          description: "Cron to run SRE Notifier"
+          default: "cron(0 10 ? * 2 *)"
+          minLength: 1
+          maxLength: 20
+        code_uri:
+          type: string
+          description: "The s3 link to your application"
+          minLength: 1
+          maxLength: 200
+
+      required:
+        - ses_arn
+        - code_uri
+
+    PipelineInputs:
+      type: object
+      description: "Pipeline input properties"
+      properties:
+        unit_test_command:
+          type: string
+          description: "The command to run to unit test the application code"
+          default: "echo 'add your unit test command here'"
+          minLength: 1
+          maxLength: 200
+        packaging_command:
+          type: string
+          description: "The commands which packages your code into a file called function.zip"
+          default: "make pack"
+          minLength: 1
+          maxLength: 200

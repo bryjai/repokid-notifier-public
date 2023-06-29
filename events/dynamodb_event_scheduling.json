@@ -1,0 +1,445 @@
+{
+  "Records": [
+    {
+      "eventID": "70485227ef10f121ede06daf00dfaa54",
+      "eventName": "MODIFY",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "<AWS Region>",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1623230255.0,
+        "Keys": {
+          "RoleId": {
+            "S": "AROAZJUAVQKOUAKXPUYUH"
+          }
+        },
+        "NewImage": {
+          "Repoed": {
+            "NULL": "True"
+          },
+          "Account": {
+            "S": "<AWS Account ID>"
+          },
+          "Policies": {
+            "L": [
+              {
+                "M": {
+                  "Policy": {
+                    "M": {
+                      "cm_1623081115_stqd": {
+                        "M": {
+                          "Version": {
+                            "S": "2012-10-17"
+                          },
+                          "Statement": {
+                            "L": [
+                              {
+                                "M": {
+                                  "Action": {
+                                    "L": [
+                                      {
+                                        "S": "s3:getobject"
+                                      },
+                                      {
+                                        "S": "s3:getobjectversion"
+                                      },
+                                      {
+                                        "S": "s3:listbucket"
+                                      },
+                                      {
+                                        "S": "s3:putobject"
+                                      }
+                                    ]
+                                  },
+                                  "Resource": {
+                                    "L": [
+                                      {
+                                        "S": "arn:aws:s3:::<Example bucket name>/*"
+                                      },
+                                      {
+                                        "S": "arn:aws:s3:::<Example bucket name>"
+                                      }
+                                    ]
+                                  },
+                                  "Effect": {
+                                    "S": "Allow"
+                                  },
+                                  "Sid": {
+                                    "S": "cm1623081111ireh"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Discovered": {
+                    "S": "2021-06-08T08:28:43.853182"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              }
+            ]
+          },
+          "RepoableServices": {
+            "L": []
+          },
+          "RepoScheduled": {
+            "N": "1622789644"
+          },
+          "CreateDate": {
+            "S": "2021-05-19 08:11"
+          },
+          "RepoablePermissions": {
+            "N": "0"
+          },
+          "RoleId": {
+            "S": "AROAZJUAVQKOUAKXPUYUH"
+          },
+          "NoRepoPermissions": {
+            "M": {
+              "s3:listbucket": {
+                "N": "1624350524"
+              },
+              "s3:getobject": {
+                "N": "1624350524"
+              },
+              "s3:putobject": {
+                "N": "1624350524"
+              },
+              "s3:getobjectversion": {
+                "N": "1624350524"
+              }
+            }
+          },
+          "Refreshed": {
+            "S": "2021-06-09T07:35:56.369038"
+          },
+          "Active": {
+            "BOOL": "True"
+          },
+          "RoleName": {
+            "S": "ConsoleMeExampleRole"
+          },
+          "TotalPermissions": {
+            "N": "4"
+          },
+          "OptOut": {
+            "M": {}
+          },
+          "AAData": {
+            "L": []
+          },
+          "AssumeRolePolicyDocument": {
+            "M": {}
+          },
+          "ScheduledPerms": {
+            "L": []
+          },
+          "Stats": {
+            "L": [
+              {
+                "M": {
+                  "PermissionsCount": {
+                    "N": "4"
+                  },
+                  "RepoablePermissionsCount": {
+                    "N": "0"
+                  },
+                  "DisqualifiedBy": {
+                    "L": []
+                  },
+                  "Date": {
+                    "S": "2021-06-08T08:28:44.253748"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "PermissionsCount": {
+                    "N": "4"
+                  },
+                  "RepoablePermissionsCount": {
+                    "N": "0"
+                  },
+                  "DisqualifiedBy": {
+                    "L": [
+                      {
+                        "S": "AgeFilter"
+                      }
+                    ]
+                  },
+                  "Date": {
+                    "S": "2021-06-08T09:34:49.093667"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              }
+            ]
+          },
+          "LastUpdated": {
+            "S": "2021-06-09 07:35"
+          },
+          "Arn": {
+            "S": "arn:aws:iam::<AWS Account ID>:role/ConsoleMeExampleRole"
+          },
+          "DisqualifiedBy": {
+            "L": [
+              {
+                "S": "AgeFilter"
+              }
+            ]
+          },
+          "Tags": {
+            "L": [
+              {
+                "M": {
+                  "Value": {
+                    "S": "true"
+                  },
+                  "Key": {
+                    "S": "consoleme-created"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Value": {
+                    "S": "email@example.com"
+                  },
+                  "Key": {
+                    "S": "consoleme-authorized"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "OldImage": {
+          "Repoed": {
+            "NULL": "True"
+          },
+          "Account": {
+            "S": "<AWS Account ID>"
+          },
+          "Policies": {
+            "L": [
+              {
+                "M": {
+                  "Policy": {
+                    "M": {
+                      "cm_1623081115_stqd": {
+                        "M": {
+                          "Version": {
+                            "S": "2012-10-17"
+                          },
+                          "Statement": {
+                            "L": [
+                              {
+                                "M": {
+                                  "Action": {
+                                    "L": [
+                                      {
+                                        "S": "s3:getobject"
+                                      },
+                                      {
+                                        "S": "s3:getobjectversion"
+                                      },
+                                      {
+                                        "S": "s3:listbucket"
+                                      },
+                                      {
+                                        "S": "s3:putobject"
+                                      }
+                                    ]
+                                  },
+                                  "Resource": {
+                                    "L": [
+                                      {
+                                        "S": "arn:aws:s3:::<Example bucket name>/*"
+                                      },
+                                      {
+                                        "S": "arn:aws:s3:::<Example bucket name>"
+                                      }
+                                    ]
+                                  },
+                                  "Effect": {
+                                    "S": "Allow"
+                                  },
+                                  "Sid": {
+                                    "S": "cm1623081111ireh"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Discovered": {
+                    "S": "2021-06-08T08:28:43.853182"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              }
+            ]
+          },
+          "RepoableServices": {
+            "L": []
+          },
+          "RepoScheduled": {
+            "N": "0"
+          },
+          "CreateDate": {
+            "S": "2021-05-19 08:11"
+          },
+          "RepoablePermissions": {
+            "N": "0"
+          },
+          "RoleId": {
+            "S": "AROAZJUAVQKOUAKXPUYUH"
+          },
+          "NoRepoPermissions": {
+            "M": {
+              "s3:listbucket": {
+                "N": "1624350524"
+              },
+              "s3:getobject": {
+                "N": "1624350524"
+              },
+              "s3:putobject": {
+                "N": "1624350524"
+              },
+              "s3:getobjectversion": {
+                "N": "1624350524"
+              }
+            }
+          },
+          "Refreshed": {
+            "S": "2021-06-09T07:35:56.369038"
+          },
+          "Active": {
+            "BOOL": "True"
+          },
+          "RoleName": {
+            "S": "ConsoleMeExampleRole"
+          },
+          "TotalPermissions": {
+            "N": "4"
+          },
+          "OptOut": {
+            "M": {}
+          },
+          "AAData": {
+            "L": []
+          },
+          "AssumeRolePolicyDocument": {
+            "M": {}
+          },
+          "ScheduledPerms": {
+            "L": []
+          },
+          "Stats": {
+            "L": [
+              {
+                "M": {
+                  "PermissionsCount": {
+                    "N": "4"
+                  },
+                  "RepoablePermissionsCount": {
+                    "N": "0"
+                  },
+                  "DisqualifiedBy": {
+                    "L": []
+                  },
+                  "Date": {
+                    "S": "2021-06-08T08:28:44.253748"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "PermissionsCount": {
+                    "N": "4"
+                  },
+                  "RepoablePermissionsCount": {
+                    "N": "0"
+                  },
+                  "DisqualifiedBy": {
+                    "L": [
+                      {
+                        "S": "AgeFilter"
+                      }
+                    ]
+                  },
+                  "Date": {
+                    "S": "2021-06-08T09:34:49.093667"
+                  },
+                  "Source": {
+                    "S": "Scan"
+                  }
+                }
+              }
+            ]
+          },
+          "LastUpdated": {
+            "S": "2021-06-09 07:35"
+          },
+          "Arn": {
+            "S": "arn:aws:iam::<AWS Account ID>:role/ConsoleMeExampleRole"
+          },
+          "DisqualifiedBy": {
+            "L": [
+              {
+                "S": "AgeFilter"
+              }
+            ]
+          },
+          "Tags": {
+            "L": [
+              {
+                "M": {
+                  "Value": {
+                    "S": "true"
+                  },
+                  "Key": {
+                    "S": "consoleme-created"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Value": {
+                    "S": "email@example.com"
+                  },
+                  "Key": {
+                    "S": "consoleme-authorized"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "SequenceNumber": "37518100000000008791209748",
+        "SizeBytes": 2428,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:<AWS Region>:<AWS Account ID>:table/<DynamoDB table name>/stream/2021-06-01T16:30:18.745"
+    }
+  ]
+}

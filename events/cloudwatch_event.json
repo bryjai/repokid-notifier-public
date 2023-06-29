@@ -1,0 +1,13 @@
+{
+  "version": "0",
+  "id": "8db484cb-ee3e-42bf-74ba-6b25e650f621",
+  "detail-type": "Scheduled Event",
+  "source": "aws.events",
+  "account": "<AWS Account ID>",
+  "time": "2021-06-09T15:05:00Z",
+  "region": "<AWS Region>",
+  "resources": [
+    "<Resource ARN>"
+  ],
+  "detail": {}
+}

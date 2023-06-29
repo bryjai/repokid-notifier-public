@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: This environment holds a simple DDB table shared between services.
+Resources:
+  AppTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "{{ environment.inputs.table_name}}"
+      Tags:
+        - Key: project
+          Value: repokid-notifier
+      AttributeDefinitions:
+        - AttributeName: RoleId
+          AttributeType: S
+        - AttributeName: Account
+          AttributeType: S
+        - AttributeName: RoleName
+          AttributeType: S
+        - AttributeName: Arn
+          AttributeType: S
+      BillingMode: PROVISIONED
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      StreamSpecification:
+        StreamViewType: "NEW_AND_OLD_IMAGES"
+      KeySchema:
+        - AttributeName: RoleId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: Account
+          Projection:
+            ProjectionType: KEYS_ONLY
+          KeySchema:
+            - KeyType: HASH
+              AttributeName: Account
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+        - IndexName: RoleName
+          Projection:
+            ProjectionType: KEYS_ONLY
+          KeySchema:
+            - KeyType: HASH
+              AttributeName: RoleName
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+        - IndexName: Arn
+          Projection:
+            ProjectionType: ALL
+          KeySchema:
+            - KeyType: HASH
+              AttributeName: Arn
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+  AppBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      Tags:
+        - Key: project
+          Value: resource-provisioner
+      BucketName: "{{ environment.inputs.bucket_name }}"
+
+# These output values will be available to service templates to use.
+Outputs:
+  TableName:
+    Description: The DDB table to be used
+    Value: !Ref 'AppTable'
+  DynamodbStreamArn:
+    Description: The DDB stream Arn
+    Value: !GetAtt AppTable.StreamArn
+  DynamodbArn:
+    Description: The DDB Arn
+    Value: !GetAtt AppTable.Arn
+  BucketName:
+    Description: The Bucket Name
+    Value: !Ref 'AppBucket'
+  BucketArn:
+    Description: The Bucket Arn
+    Value: !GetAtt AppBucket.Arn

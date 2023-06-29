@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda functions triggered by DynamoDB Event and CloudWatch cron Event
+
+Resources:
+  ProcessDynamoDBStream:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: "notifier.dynamodb_stream_handler.lambda_handler"
+      Tags:
+        project: repokid-notifier
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+              Resource: "{{service_instance.inputs.ses_arn}}"
+      Runtime: "python3.8"
+      Timeout: {{service_instance.inputs.dynamo_lambda_timeout}}
+      MemorySize: {{service_instance.inputs.dynamo_lambda_memory}}
+      CodeUri: {{service_instance.inputs.code_uri}}
+      Environment:
+        Variables:
+          SES_ARN: "{{service_instance.inputs.ses_arn}}"
+      Events:
+        DynamoDBEvent:
+          Type: DynamoDB
+          Properties:
+            Stream: "{{environment.outputs.DynamodbStreamArn}}"
+            BatchSize: {{service_instance.inputs.dynamodb_batch_size}}
+            StartingPosition: "{{service_instance.inputs.dynamodb_starting_position}}"
+            Enabled: true
+      Tracing: Active
+  SreNotifierCronJob:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: "notifier.sre_notifier.lambda_handler"
+      Tags:
+        project: repokid-notifier
+      Runtime: "python3.8"
+      Timeout: {{service_instance.inputs.sre_notifier_lambda_timeout}}
+      CodeUri: {{service_instance.inputs.code_uri}}
+      MemorySize: {{service_instance.inputs.sre_notifier_lambda_memory}}
+      Environment:
+        Variables:
+          SES_ARN: "{{service_instance.inputs.ses_arn}}"
+          DYNAMO_TABLE: "{{environment.outputs.TableName}}"
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+              Resource: "{{service_instance.inputs.ses_arn}}"
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:scan
+                - dynamodb:getitem
+                - dynamodb:getrecords
+              Resource:
+                - "{{environment.outputs.DynamodbArn}}"
+                - "{{environment.outputs.DynamodbArn}}/*"
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: "{{service_instance.inputs.sre_notifier_cron}}"
+
+Outputs:
+  BucketName:
+    Description: The Bucket Name
+    Value: "{{environment.outputs.BucketName}}"
+  BucketArn:
+    Description: The Bucket Arn
+    Value: "{{environment.outputs.BucketArn}}"
+

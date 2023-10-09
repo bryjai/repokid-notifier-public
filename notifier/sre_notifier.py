@@ -21,12 +21,21 @@ def scan_roles(
     role_list = []
     table = dynamodb.Table(dynamo_table)
 
-    response = table.scan()
-    scan_result = response["Items"]
-    for role in scan_result:
-        repo_scheduled_datetime = datetime.fromtimestamp(role["RepoScheduled"])
-        if timestamp_from <= repo_scheduled_datetime < timestamp_to:
-            role_list.append(role)
+    scan_kwargs = {}
+    while True:
+        response = table.scan(**scan_kwargs)
+        scan_result = response.get("Items", [])
+        for role in scan_result:
+            repo_scheduled_datetime = datetime.fromtimestamp(role["RepoScheduled"])
+            if timestamp_from <= repo_scheduled_datetime < timestamp_to:
+                role_list.append(role)
+        
+        # Check for more items to scan
+        if "LastEvaluatedKey" in response:
+            scan_kwargs["ExclusiveStartKey"] = response["LastEvaluatedKey"]
+        else:
+            break
+
     return role_list
 
 
